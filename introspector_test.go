@@ -43,6 +43,9 @@ func equal(t *testing.T, a, b *introspector.Introspection) {
 	if a.Active != b.Active {
 		t.Errorf(".Active differs: (first: %v) (second: %v)", a.Active, b.Active)
 	}
+	if a.Scope != b.Scope {
+		t.Errorf(".Scope differs: (first: %v) (second: %v)", a.Scope, b.Scope)
+	}
 	if a.ClientID != b.ClientID {
 		t.Errorf(".ClientID differs: (first: %v) (second: %v)", a.ClientID, b.ClientID)
 	}

@@ -73,3 +73,20 @@ type Introspection struct {
 type Introspector interface {
 	Introspect(token string, scopes ...string) (*Introspection, error)
 }
+
+// Permission is a request of permission that can be accepted or denied
+type Permission struct {
+	// Resource is the resource that access is requested to.
+	Resource string `json:"resource"`
+
+	// Action is the action that is requested on the resource.
+	Action string `json:"action"`
+
+	// Context is the permission's environmental context.
+	Context map[string]string `json:"context"`
+}
+
+// Warden is an abstraction that allows you to query a token asking for permissions
+type Warden interface {
+	Allowed(token string, perm Permission, scopes ...string) (*Introspection, bool, error)
+}
