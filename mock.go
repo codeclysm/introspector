@@ -10,7 +10,7 @@ type Mock struct {
 }
 
 // Introspect accepts a token in this form:
-//   "userid.scope1,scope2"
+//   "userid.scope1,scope2.[allow|deny]"
 // and will return an appropriate introspection
 func (m Mock) Introspect(token string, scopes ...string) (*Introspection, error) {
 	introspection := new(Introspection)

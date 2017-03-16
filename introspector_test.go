@@ -2,7 +2,6 @@ package introspector_test
 
 import (
 	"log"
-	"net/http"
 	"reflect"
 	"testing"
 
@@ -18,12 +17,7 @@ func Example() {
 		Key: []byte("other key"),
 	}
 
-	o := introspector.Oauth{
-		Endpoint: "https://example.com/auth/token",
-		Client:   &http.Client{},
-	}
-
-	collection := introspector.Collection{j1, j2, o}
+	collection := introspector.Collection{j1, j2}
 
 	i, err := collection.Introspect("token")
 	log.Println(i, err)

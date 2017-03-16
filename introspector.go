@@ -69,9 +69,9 @@ type Introspection struct {
 	Extra map[string]interface{} `json:"ext,omitempty"`
 }
 
-// Introspector is an abstraction that allows you to retrieve the info of a token
+// Introspector is an abstraction that allows you to retrieve the authentication info from a context
 type Introspector interface {
-	Introspect(token string, scopes ...string) (*Introspection, error)
+	Introspect(token string) (*Introspection, error)
 }
 
 // Permission is a request of permission that can be accepted or denied
@@ -86,7 +86,8 @@ type Permission struct {
 	Context map[string]string `json:"context"`
 }
 
-// Warden is an abstraction that allows you to query a token asking for permissions
+// Warden is an abstraction that allows you to ask for permissions
 type Warden interface {
+	Introspector
 	Allowed(token string, perm Permission, scopes ...string) (*Introspection, bool, error)
 }

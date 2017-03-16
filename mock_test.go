@@ -18,9 +18,13 @@ func TestMock(t *testing.T) {
 		{"test.users:create", "users", "modify", false,
 			introspector.Introspection{
 				Active: true, Subject: "test", Scope: "users:create"}},
-		{"test.users:create,users:modify", "users", "modify", true,
+		{"test.users:create,users:modify", "users", "modify", false,
 			introspector.Introspection{
 				Active: true, Subject: "test", Scope: "users:create users:modify"}},
+		{"test.users:create,users:modify.allow", "users", "modify", true,
+			introspector.Introspection{
+				Active: true, Subject: "test", Scope: "users:create users:modify",
+				Extra: map[string]interface{}{"allow": true}}},
 	}
 	for _, tc := range cases {
 		mock := introspector.Mock{}
