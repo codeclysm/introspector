@@ -1,16 +1,10 @@
-// Package introspector abstracts the process of gaining info from an authentication
-// token.
-//
-// In a perfect world you'll have to handle authentication only once, and only
-// from a perfectly standard Oauthx solution that you can plug in every project.
-//
-// Reality is different. In reality we had to change our authenticaton system from
-// a messy cas+sso+oauth2+jwt system to a messy oauth2 system, leaving apps able to
-// understand token and authentication headers coming from very different auth apps.
-//
-// The core feature of the package is the Collection. It's a slice of Introspectors
-// that implements the Introspector interface. You can then plug in lots of different
-// sources of authentication, and still get info about them.
+// Package introspector abstracts the process of gaining info from an
+// authentication token.
+// In a perfect world you'll have to handle authentication only once, and only from
+// a perfectly standard Oauthx solution that you can plug in every project.
+// Reality is different. In reality you have to handle a messy authentication system with oauth2, along with some hardcoded api keys that no one knows who put there, and on top of it all you have to introduce a brand new (but still messy) authentication system.
+// apps.
+// Introspector introduces the concept of collections. It returns info from the first system that understands what you're talking about.
 package introspector
 
 // Introspection contains an access token's session data as specified by IETF RFC 7662, see:

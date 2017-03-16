@@ -1,7 +1,7 @@
 package introspector_test
 
 import (
-	"log"
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -10,17 +10,25 @@ import (
 
 func Example() {
 	j1 := introspector.JWT{
-		Key: []byte("key"),
+		Key: []byte("secret"),
 	}
 
 	j2 := introspector.JWT{
-		Key: []byte("other key"),
+		Key: []byte("terces"),
 	}
 
 	collection := introspector.Collection{j1, j2}
 
-	i, err := collection.Introspect("token")
-	log.Println(i, err)
+	i, err := collection.Introspect("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJleGFtcGxlIiwiZXhwIjoxNDg2Mzk0Nzc5LCJqdGkiOiJmODVjNTM0Yy03M2JhLTQ3NjMtYTU4MS0yMzkxN2I5Nzc5MjUiLCJpYXQiOjE0ODYzODg3NzksImlzcyI6ImFwaS5leGFtcGxlLmNjIiwibmJmIjoxNDg2Mzg4Nzc5LCJzdWIiOiJ0ZXN0IiwidXNlciI6eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpZCI6InRlc3QiLCJ1aWQiOiJ0ZXN0In19.mpRwH7Klc2P1X93N1f0Qf_W3RcNfxm97xwSLEpgSlIw")
+	fmt.Println(err)
+	fmt.Println(i.Subject)
+	fmt.Println(i.Active)
+	fmt.Println(i.ExpiresAt)
+	// Output:
+	// <nil>
+	// test
+	// false
+	// 1486394779
 }
 
 func equal(t *testing.T, a, b *introspector.Introspection) {
