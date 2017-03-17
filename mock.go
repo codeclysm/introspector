@@ -12,7 +12,7 @@ type Mock struct {
 // Introspect accepts a token in this form:
 //   "userid.scope1,scope2.[allow|deny]"
 // and will return an appropriate introspection
-func (m Mock) Introspect(token string, scopes ...string) (*Introspection, error) {
+func (m Mock) Introspect(token string) (*Introspection, error) {
 	introspection := new(Introspection)
 
 	parts := strings.Split(token, ".")
@@ -32,11 +32,6 @@ func (m Mock) Introspect(token string, scopes ...string) (*Introspection, error)
 	introspection.Scope = strings.Join(parts, " ")
 
 	introspection.Active = true
-	for _, scope := range scopes {
-		if !in(parts, scope) {
-			introspection.Active = false
-		}
-	}
 
 	return introspection, nil
 }
@@ -46,12 +41,18 @@ func (m Mock) Introspect(token string, scopes ...string) (*Introspection, error)
 // where scope1 and scope2 are in the form action:resource.
 // Example: "123456.create:users.allow"
 func (m Mock) Allowed(token string, perm Permission, scopes ...string) (*Introspection, bool, error) {
-	i, err := m.Introspect(token, scopes...)
+	i, err := m.Introspect(token)
 	if err != nil {
 		return i, false, err
 	}
 	if !i.Active {
 		return i, false, nil
+	}
+
+	for _, scope := range scopes {
+		if !in(strings.Split(i.Scope, ","), scope) {
+			i.Active = false
+		}
 	}
 
 	if _, ok := i.Extra["allow"]; ok {
