@@ -40,26 +40,27 @@ func (m Mock) Introspect(token string) (*Introspection, error) {
 //   "userid.scope1,scope2.[allow|deny]"
 // where scope1 and scope2 are in the form action:resource.
 // Example: "123456.create:users.allow"
-func (m Mock) Allowed(token string, perm Permission, scopes ...string) (*Introspection, bool, error) {
-	i, err := m.Introspect(token)
+func (m Mock) Allowed(token string, perm Permission, scopes ...string) (i *Introspection, can bool, err error) {
+	i, err = m.Introspect(token)
 	if err != nil {
 		return i, false, err
 	}
-	if !i.Active {
-		return i, false, nil
-	}
 
 	for _, scope := range scopes {
-		if !in(strings.Split(i.Scope, ","), scope) {
+		if !in(strings.Split(i.Scope, " "), scope) {
 			i.Active = false
 		}
 	}
 
-	if _, ok := i.Extra["allow"]; ok {
-		return i, true, nil
+	if !i.Active {
+		return i, false, nil
 	}
 
-	return i, false, nil
+	if _, ok := i.Extra["allow"]; ok {
+		can = true
+	}
+
+	return i, can, nil
 }
 
 func in(slice []string, a string) bool {
