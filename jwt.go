@@ -10,7 +10,9 @@ import (
 // JWT extracts info from a token if it manages to decrypt it
 type JWT struct {
 	// Key is the signing key for the JWT token
-	Key []byte
+	Key interface{}
+	// Method is the Signing Method of the JWT. Can be one of [ECDSA, RSA, HMAC]. Defaults to HMAC
+	Method string
 }
 
 // Introspect extracts the info from the standard jwt claims, which you can read
@@ -20,9 +22,21 @@ type JWT struct {
 func (j JWT) Introspect(token string) (*Introspection, error) {
 	tok, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
 		// Check the signing method
-		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, errors.Errorf("Unexpected signing method: %v", t.Header["alg"])
+		switch j.Method {
+		case "ECDSA":
+			if _, ok := t.Method.(*jwt.SigningMethodECDSA); !ok {
+				return nil, errors.Errorf("Unexpected signing method: %v", t.Header["alg"])
+			}
+		case "RSA":
+			if _, ok := t.Method.(*jwt.SigningMethodRSA); !ok {
+				return nil, errors.Errorf("Unexpected signing method: %v", t.Header["alg"])
+			}
+		default:
+			if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, errors.Errorf("Unexpected signing method: %v", t.Header["alg"])
+			}
 		}
+
 		return j.Key, nil
 	})
 
