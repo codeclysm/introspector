@@ -1,0 +1,26 @@
+[
+    {
+        "id": "wrongerror",
+        "token": "",
+        "key": "testdata/key1.pem",
+        "error": "introspect: parse token: square/go-jose: compact JWS format must have three parts"
+    },
+    {
+        "id": "key1",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFqZzJOREExUlRrME0wTkROa0kwTkRGRE9ESTJOVU5DUXpaRk9FUTFNek15TURaR1FrRXpOQSJ9.eyJpc3MiOiJodHRwczovL21hdHRlb3N1cHBvLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDEwODg4Mzg2NzkxOTUxNzY0NTYzMSIsImF1ZCI6WyJhcGkuZXZlbnR1YWxpdHkuY29tIiwiaHR0cHM6Ly9tYXR0ZW9zdXBwby5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiYXpwIjoiM3M0V0UyMXpPY1BRYnJteVdXQ200WG5WR0E3WlZZaEUiLCJleHAiOjE1MDA1ODU5OTAsImlhdCI6MTUwMDU3ODc5MCwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBldmVudHM6d3JpdGUifQ.W4HNZlaWgBr-dASOOtfWOgZMpaUjN69nChzMpDUoA-RXbJTT_vwjprM7ffsS00lCBiIu2ZiT3t1_fsb8eqd9lFHhgN8_3t07nXuWiSBoMDUW-LsEPUxZEwS_HK0E2FYpIiRrFJWBtf6ksbDhh33d41Hyyhfa1TjMI5f4uwnnnDc-UWEKnuiMFu2xXQsiPdnAF6j1egnTXnZMf_KjgOdbdcpOLYe7lHw4U4OCQcj3nwVHbbcpJMUNSzoIVlmFcHLRCOUivZ15f9OnHHGtTf-NB7Ay79Kat-jrh8RxD6frUbIWqBriAPGyUMHPwuVgSetJfpmv-KNEP0dnkPCoNsdA_A",
+        "key": "testdata/key1.pem",
+        "error": ""
+    },
+    {
+        "id": "key2",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFqZzJOREExUlRrME0wTkROa0kwTkRGRE9ESTJOVU5DUXpaRk9FUTFNek15TURaR1FrRXpOQSJ9.eyJpc3MiOiJodHRwczovL21hdHRlb3N1cHBvLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDEwODg4Mzg2NzkxOTUxNzY0NTYzMSIsImF1ZCI6WyJhcGkuZXZlbnR1YWxpdHkuY29tIiwiaHR0cHM6Ly9tYXR0ZW9zdXBwby5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiYXpwIjoiM3M0V0UyMXpPY1BRYnJteVdXQ200WG5WR0E3WlZZaEUiLCJleHAiOjE1MDA1ODU5OTAsImlhdCI6MTUwMDU3ODc5MCwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBldmVudHM6d3JpdGUifQ.WO9GOt9w57gZ7VOkhhUJLC5J9ukLwA7nRFgx9VzOoMXfo-zCv7JxWiYs28llg0mwJc675Rq5ilhNrWQVivH9Az_pnnrwBEWSiRTL2SWWJ3UjNBRBeO9VPLMUVZRKPZldEdLAYinketUFMSzW2T3w3zDBgDoixptOqcpWs_Y_3-7pjWJ24xO8Jo5ySO9n8fl0QciUCpNz63BsP34bIoxLnul7FbkMFp3QoBFaoHVfe84yNzgO37vlq0kPPDnCU8G41IOaTPwcvx1nWRN-VYlQO8t1P8Ue6RiDeDYGIXTYjm3sVZTnVkhOD6VMLlAPYvqulrbaBu3CtLiiCbHRmDxanbW92QitK3sXT0PUEPVjx91sfgGla93oRmsIChjn0E-Lo6XHe-ZRBUVkFXX8ew68HXuz8g5w4IBsY1s6ZM8ZFbrTuAUi6EEW5HiaI8wyHRqmvodwI5nY13q9scZaaYdoHeXaGHel4M3hSpjNv2PH2QdfO077yJ_qJyh7TS55zuG6RC86xAc79PXvcxwz7Gb50XsxNOWm9Tn5O57JJeXdt5zXVsdW2dtNDRPnzHwxFoN4LXo8rRgfFP93O8_WJwbJXJvdQvfmrBjJaf2bEeTCJIXXh7d2ErxwKxWX4nSaM-c-AZhxvt9BIcHURhHFYicxj_EZ9f568GogdYpXDBvNmYo",
+        "key": "testdata/key2.pem",
+        "error": ""
+    },
+    {
+        "id": "expired",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlFqZzJOREExUlRrME0wTkROa0kwTkRGRE9ESTJOVU5DUXpaRk9FUTFNek15TURaR1FrRXpOQSJ9.eyJpc3MiOiJodHRwczovL21hdHRlb3N1cHBvLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDEwODg4Mzg2NzkxOTUxNzY0NTYzMSIsImF1ZCI6WyJhcGkuZXZlbnR1YWxpdHkuY29tIiwiaHR0cHM6Ly9tYXR0ZW9zdXBwby5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiYXpwIjoiM3M0V0UyMXpPY1BRYnJteVdXQ200WG5WR0E3WlZZaEUiLCJleHAiOjEwMDU4NTk5MCwiaWF0IjoxMDA1Nzg3OTAsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZXZlbnRzOndyaXRlIn0.pQaPO_pG7PwC_UmYU80KR0m0QZxhWDhIJ-2udwh_i1K0zGYu_b_0Mx-EBEKwXiNHRi01HVkRZBgqxgfSC-vDjZCsx09jRCBT8B0qiFMe0_f4L3cKgPL3aHA2EBwz6eAq5DJkcI4mcq89x7MuRF5NkuUrtJ_WdF6uxRf0DwpcKjyNtHgzlXJ2TMrT5sTIzW5KO_uzXZjQNw3pCavUjPIlN4Kt5F-aWeqiC2pHeGswtSlH9IFlg0gRbjoH6jc0iXeRSju5BPKKmsQF7NiaK2xDSl384Hb5C0RWgVm3NGeeaK72cSZjMgxiLt87AunniWwGhD7tMvuw0pRV2IGC9fCYm54G7avCkFXJ_Zz33MNLP3AKtw2BZcSMK4J4vz3BtzDKsFugyd3IDjOJ5ZhcOJ0MTfgyFQZqh7vcXugYhAnNJPm-AqpKHUyjMt9fU2IO8ghEJy-TfV5HiUNXojdbh9RjxgnUAn_aOwx8xqli2KpyaO8L7KDU5dHtVadB3m3XELqdkOP_k9loTPrwYaB77GA-FghuFFIj2gEf03c5fxDPrCk4f2rQxnzfVySg6otuDgfRBdfyuYuqDJGJyEv5ZjYJXvpNXs1WAuAa3CwnUVIfROgWSkveHt-EQft-qqJgnuGr93hRr7L8xpQwiBMbZPk_W8H4rYNdv98KJURSQa1Y1Jc",
+        "key": "testdata/key2.pem",
+        "error": "introspect: validate claims: square/go-jose/jwt: validation failed, token is expired (exp)"
+    }
+]
