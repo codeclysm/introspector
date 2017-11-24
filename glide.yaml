@@ -1,4 +1,4 @@
-package: github.com/codeclysm/introspector
+package: github.com/serjlee/introspector
 import:
 - package: github.com/dgrijalva/jwt-go
   version: ^3.0.0
