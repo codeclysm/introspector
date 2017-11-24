@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/codeclysm/introspector"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/pborman/uuid"
+	"github.com/serjlee/introspector"
 
 	"time"
 )

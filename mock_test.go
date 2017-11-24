@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/codeclysm/introspector"
+	"github.com/serjlee/introspector"
 )
 
 func TestMock(t *testing.T) {
