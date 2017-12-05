@@ -1,9 +1,9 @@
-use 'godoc cmd/github.com/serjlee/introspector' for documentation on the github.com/serjlee/introspector command 
+use 'godoc cmd/github.com/codeclysm/introspector' for documentation on the github.com/codeclysm/introspector command 
 
 Package introspector
 =====================
 
-    import "github.com/serjlee/introspector"
+    import "github.com/codeclysm/introspector"
 
 Package introspector abstracts the process of gaining info from an
 authentication token.
@@ -55,4 +55,4 @@ We are asking if the token has the permission of deleting users in the scope adm
 
 You can implement your own introspectors, as long as you satisfy the necessary interfaces.
 
-Learn more at https://godoc.org/github.com/serjlee/introspector
+Learn more at https://godoc.org/github.com/codeclysm/introspector
