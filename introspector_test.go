@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/serjlee/introspector"
+	"github.com/codeclysm/introspector"
 )
 
 func Example() {

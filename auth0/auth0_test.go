@@ -10,7 +10,7 @@ import (
 
 	"io/ioutil"
 
-	"github.com/serjlee/introspector/auth0"
+	"github.com/codeclysm/introspector/auth0"
 )
 
 func TestValidity(t *testing.T) {
