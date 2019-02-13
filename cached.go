@@ -16,6 +16,7 @@ func (c Cached) Introspect(token string) (i *Introspection, err error) {
 	// Attempt to retrieve from cache
 	data, err := c.Cache.Get("introspect:" + token)
 	if err == nil {
+		i = &Introspection{}
 		err = json.Unmarshal(data, i)
 		if err != nil {
 			return nil, err
