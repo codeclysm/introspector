@@ -12,7 +12,7 @@ import (
 
 	"net/http"
 
-	"github.com/codeclysm/introspector"
+	"github.com/codeclysm/introspector/v2"
 	"github.com/pkg/errors"
 	jwt "gopkg.in/square/go-jose.v2/jwt"
 )

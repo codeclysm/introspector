@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/codeclysm/introspector"
+	"github.com/codeclysm/introspector/v2"
 )
 
 func TestJWT(t *testing.T) {
