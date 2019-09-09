@@ -79,9 +79,3 @@ type Permission struct {
 	// Context is the permission's environmental context.
 	Context map[string]string `json:"context"`
 }
-
-// Warden is an abstraction that allows you to ask for permissions
-type Warden interface {
-	Introspector
-	Allowed(token string, perm Permission, scopes ...string) (*Introspection, bool, error)
-}

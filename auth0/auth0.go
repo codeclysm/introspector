@@ -25,7 +25,7 @@ type Auth0 struct {
 	// ProfileURL is the url containing the profile urls. It's only used if the token has the scope profile
 	ProfileURL string
 
-	// Claims is a list of claims that a token must have to be valid. Leave Time empty to validate the token against the time of the call to Introspect() or Allowed()
+	// Claims is a list of claims that a token must have to be valid. Leave Time empty to validate the token against the time of the call to Introspect()
 	Claims jwt.Expected
 }
 
@@ -140,34 +140,6 @@ func (a Auth0) Introspect(token string) (*introspector.Introspection, error) {
 	}
 
 	return &i, nil
-}
-
-// Allowed uses scopes to determine if a token has a permission: a scope should have the form `action:resource`.
-func (a Auth0) Allowed(token string, perm introspector.Permission, expectedScopes ...string) (*introspector.Introspection, bool, error) {
-	i, err := a.Introspect(token)
-	if err != nil {
-		return nil, false, err
-	}
-
-	// Check scopes and permissions
-	scopes := strings.Split(i.Scope, " ")
-	permScope := perm.Action + ":" + perm.Resource
-	found := false
-	for _, scope := range expectedScopes {
-		if !in(scopes, scope) {
-			return i, false, errors.New("missing scope " + scope)
-		}
-
-		if scope == permScope {
-			found = true
-		}
-	}
-
-	if !found {
-		return i, false, errors.New("cannot " + perm.Action + " " + perm.Resource)
-	}
-
-	return i, true, nil
 }
 
 func (a Auth0) getProfile(token string) (map[string]string, error) {

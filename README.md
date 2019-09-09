@@ -39,20 +39,6 @@ Introspector introduces the concept of collections. It returns info from the fir
 	// 1486394779
 ```
 
-You can also test for a given permission, assuming that your system understands them:
-
-```go
-
-    perm := introspector.Permission{
-        Action: "delete",
-        Resource: "users",
-    }
-
-    i, can, err := custom.Allowed(token, perm, "administration")
-```
-
-We are asking if the token has the permission of deleting users in the scope administration.
-
-You can implement your own introspectors, as long as you satisfy the necessary interfaces.
+You can implement your own introspectors, as long as you satisfy the necessary interface.
 
 Learn more at https://godoc.org/github.com/codeclysm/introspector
