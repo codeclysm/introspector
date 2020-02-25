@@ -7,7 +7,6 @@ import (
 
 	"github.com/codeclysm/introspector/v2"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/pborman/uuid"
 )
 
 var token1 string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJleGFtcGxlIiwiZXhwIjoxNDg2Mzk0Nzc5LCJqdGkiOiJmODVjNTM0Yy03M2JhLTQ3NjMtYTU4MS0yMzkxN2I5Nzc5MjUiLCJpYXQiOjE0ODYzODg3NzksImlzcyI6ImFwaS5leGFtcGxlLmNjIiwibmJmIjoxNDg2Mzg4Nzc5LCJzdWIiOiJ0ZXN0IiwidXNlciI6eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpZCI6InRlc3QiLCJ1aWQiOiJ0ZXN0In19.mpRwH7Klc2P1X93N1f0Qf_W3RcNfxm97xwSLEpgSlIw"
@@ -76,7 +75,7 @@ func createJwt(key []byte, valid bool) string {
 	claims := &jwt.StandardClaims{
 		Audience:  "test",
 		ExpiresAt: timestamp.Add(time.Hour * 1).Unix(),
-		Id:        uuid.New(),
+		Id:        "f85c534c-73ba-4763-a581-23917b977925",
 		IssuedAt:  timestamp.Unix(),
 		Issuer:    "api.arduino.cc",
 		NotBefore: timestamp.Unix(),
