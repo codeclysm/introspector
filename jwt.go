@@ -1,8 +1,10 @@
 package introspector
 
 import (
+	"errors"
+	"fmt"
+
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/juju/errors"
 )
 
 // JWT extracts info from a token if it manages to decrypt it
@@ -23,15 +25,15 @@ func (j JWT) Introspect(token string) (*Introspection, error) {
 		switch j.Method {
 		case "ECDSA":
 			if _, ok := t.Method.(*jwt.SigningMethodECDSA); !ok {
-				return nil, errors.Errorf("Unexpected signing method: %v", t.Header["alg"])
+				return nil, fmt.Errorf("introspect failed: unexpected signing method: %v", t.Header["alg"])
 			}
 		case "RSA":
 			if _, ok := t.Method.(*jwt.SigningMethodRSA); !ok {
-				return nil, errors.Errorf("Unexpected signing method: %v", t.Header["alg"])
+				return nil, fmt.Errorf("introspect failed: unexpected signing method: %v", t.Header["alg"])
 			}
 		default:
 			if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, errors.Errorf("Unexpected signing method: %v", t.Header["alg"])
+				return nil, fmt.Errorf("introspect failed: unexpected signing method: %v", t.Header["alg"])
 			}
 		}
 
@@ -41,7 +43,7 @@ func (j JWT) Introspect(token string) (*Introspection, error) {
 	// We don't return an error if the token is not valid, but only if we cannot parse it
 	if ve, ok := err.(*jwt.ValidationError); ok {
 		if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) == 0 {
-			return nil, errors.Annotate(err, "Introspect failed")
+			return nil, fmt.Errorf("introspect failed: %w", err)
 		}
 	}
 
@@ -49,7 +51,7 @@ func (j JWT) Introspect(token string) (*Introspection, error) {
 	var ok bool
 
 	if claims, ok = tok.Claims.(jwt.MapClaims); !ok {
-		return nil, errors.New("Introspect failed: couldn't understand claims")
+		return nil, errors.New("introspect failed: couldn't understand claims")
 	}
 
 	i := Introspection{
@@ -63,35 +65,35 @@ func (j JWT) Introspect(token string) (*Introspection, error) {
 		switch key {
 		case "iss":
 			if i.Issuer, ok = value.(string); !ok {
-				return nil, errors.New("Introspect failed: claims['iss'] is not a string")
+				return nil, errors.New("introspect failed: claims['iss'] is not a string")
 			}
 		case "aud":
 			if i.Audience, ok = value.(string); !ok {
-				return nil, errors.New("Introspect failed: claims['aud'] is not a string")
+				return nil, errors.New("introspect failed: claims['aud'] is not a string")
 			}
 		case "sub":
 			if i.Subject, ok = value.(string); !ok {
-				return nil, errors.New("Introspect failed: claims['sub'] is not a string")
+				return nil, errors.New("introspect failed: claims['sub'] is not a string")
 			}
 		case "exp":
 			// I don't know why it recognize it as a float64. ¯\_(ツ)_/¯
 			var expires float64
 			if expires, ok = value.(float64); !ok {
-				return nil, errors.New("Introspect failed: claims['exp'] is not an float64")
+				return nil, errors.New("introspect failed: claims['exp'] is not an float64")
 			}
 			i.ExpiresAt = int64(expires)
 		case "iat":
 			// I don't know why it recognize it as a float64. ¯\_(ツ)_/¯
 			var issued float64
 			if issued, ok = value.(float64); !ok {
-				return nil, errors.New("Introspect failed: claims['iat'] is not an float64")
+				return nil, errors.New("introspect failed: claims['iat'] is not an float64")
 			}
 			i.IssuedAt = int64(issued)
 		case "nbf":
 			// I don't know why it recognize it as a float64. ¯\_(ツ)_/¯
 			var notbefore float64
 			if notbefore, ok = value.(float64); !ok {
-				return nil, errors.New("Introspect failed: claims['nbf'] is not an float64")
+				return nil, errors.New("introspect failed: claims['nbf'] is not an float64")
 			}
 			i.NotBefore = int64(notbefore)
 		default:

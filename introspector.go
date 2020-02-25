@@ -67,15 +67,3 @@ type Introspection struct {
 type Introspector interface {
 	Introspect(token string) (*Introspection, error)
 }
-
-// Permission is a request of permission that can be accepted or denied
-type Permission struct {
-	// Resource is the resource that access is requested to.
-	Resource string `json:"resource"`
-
-	// Action is the action that is requested on the resource.
-	Action string `json:"action"`
-
-	// Context is the permission's environmental context.
-	Context map[string]string `json:"context"`
-}

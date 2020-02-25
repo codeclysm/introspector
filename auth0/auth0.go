@@ -4,16 +4,15 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"strings"
 	"time"
 
-	"net/http"
-
 	"github.com/codeclysm/introspector/v2"
-	"github.com/pkg/errors"
 	jwt "gopkg.in/square/go-jose.v2/jwt"
 )
 
@@ -70,7 +69,7 @@ func (a Auth0) Introspect(token string) (*introspector.Introspection, error) {
 	// Check signature
 	t, err := jwt.ParseSigned(token)
 	if err != nil {
-		return nil, errors.Wrap(err, "introspect: parse token")
+		return nil, fmt.Errorf("introspect: parse token: %w", err)
 	}
 
 	header := t.Headers[0]
@@ -82,14 +81,14 @@ func (a Auth0) Introspect(token string) (*introspector.Introspection, error) {
 	claims := jwt.Claims{}
 	err = t.Claims(a.Key, &claims)
 	if err != nil {
-		return nil, errors.Wrap(err, "introspect: verify token")
+		return nil, fmt.Errorf("introspect: verify token: %w", err)
 	}
 
 	// We use this to access scope easily
 	claims2 := map[string]interface{}{}
 	err = t.Claims(a.Key, &claims2)
 	if err != nil {
-		return nil, errors.Wrap(err, "introspect: verify token")
+		return nil, fmt.Errorf("introspect: verify token: %w", err)
 	}
 
 	i := introspector.Introspection{
@@ -115,7 +114,7 @@ func (a Auth0) Introspect(token string) (*introspector.Introspection, error) {
 
 	err = claims.Validate(expected)
 	if err != nil {
-		return &i, errors.Wrap(err, "introspect: validate claims")
+		return &i, fmt.Errorf("introspect: validate claims: %w", err)
 	}
 
 	i.Active = true
@@ -125,7 +124,7 @@ func (a Auth0) Introspect(token string) (*introspector.Introspection, error) {
 	if a.ProfileURL != "" && in(scopes, "profile") {
 		profile, err := a.getProfile(token)
 		if err != nil {
-			return &i, errors.Wrap(err, "introspect: get profile")
+			return &i, fmt.Errorf("introspect: get profile: %w", err)
 		}
 
 		for key, value := range profile {
