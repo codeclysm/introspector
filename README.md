@@ -3,7 +3,7 @@ use 'godoc cmd/github.com/codeclysm/introspector' for documentation on the githu
 Package introspector
 =====================
 
-    import "github.com/codeclysm/introspector/v2"
+    import "github.com/codeclysm/introspector/v3"
 
 Package introspector abstracts the process of gaining info from an
 authentication token.
