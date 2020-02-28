@@ -9,7 +9,7 @@ type Collection []Introspector
 
 // Introspect queries every introspector returning the result of the first one
 // that succeeds or a collection of errors
-func (c Collection) Introspect(token string) (*Introspection, error) {
+func (c Collection) Introspect(token string) (Introspection, error) {
 	errs := multierror.Errors{}
 
 	for i := range c {
@@ -20,5 +20,5 @@ func (c Collection) Introspect(token string) (*Introspection, error) {
 		errs = append(errs, err)
 	}
 
-	return nil, errs.Err()
+	return Introspection{}, errs.Err()
 }

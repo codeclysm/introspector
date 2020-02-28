@@ -7,6 +7,11 @@
 // Introspector introduces the concept of collections. It returns info from the first system that understands what you're talking about.
 package introspector
 
+import (
+	"errors"
+	"time"
+)
+
 // Introspection contains an access token's session data as specified by IETF RFC 7662, see:
 // https://tools.ietf.org/html/rfc7662
 type Introspection struct {
@@ -63,7 +68,37 @@ type Introspection struct {
 	Extra map[string]interface{} `json:"ext,omitempty"`
 }
 
-// Introspector is an abstraction that allows you to retrieve the authentication info from a context
+var ErrIssuedFuture = errors.New("token issued in the future")
+var ErrNotYetValid = errors.New("token not yet valid")
+var ErrExpired = errors.New("token expired")
+var ErrNotActive = errors.New("token not active")
+
+// Valid checks the validity of the introspection, aka whether its IssuedAt, NotBefore, ExpiresAt fields make sense
+func (i Introspection) Valid() error {
+	now := time.Now()
+
+	if time.Unix(i.IssuedAt, 0).After(now) {
+		return ErrIssuedFuture
+	}
+
+	if time.Unix(i.NotBefore, 0).After(now) {
+		return ErrNotYetValid
+	}
+
+	if time.Unix(i.ExpiresAt, 0).Before(now) {
+		return ErrExpired
+	}
+
+	if !i.Active {
+		return ErrNotActive
+	}
+	return nil
+}
+
+// Introspector is an abstraction that allows you to retrieve the authentication info from a context, and to validate them
 type Introspector interface {
-	Introspect(token string) (*Introspection, error)
+	// Introspect returns an introspection of the token
+	// It returns an empty Introspection plus an error if the token is malformed or signed with the wrong key.
+	// It must not return an error if the token is simply expired, or not valid
+	Introspect(token string) (Introspection, error)
 }
