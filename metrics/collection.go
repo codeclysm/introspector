@@ -11,18 +11,20 @@ import (
 // MetricsCollection allows you to query multiple introspector
 type MetricsCollection struct {
 	Collection []introspector.Introspector
+	namespace  string
 	counter    *prometheus.CounterVec
 }
 
-func NewMetricsCollection(collection ...introspector.Introspector) MetricsCollection {
+func NewMetricsCollection(namespace string, collection ...introspector.Introspector) MetricsCollection {
 	counter := prometheus.NewCounterVec(prometheus.CounterOpts{
 		Name: "introspector_counts",
 		Help: "The requests to introspect a token and which introspector responds",
-	}, []string{"introspector"})
+	}, []string{"namespace", "introspector"})
 	prometheus.MustRegister(counter)
 
 	return MetricsCollection{
 		Collection: collection,
+		namespace:  namespace,
 		counter:    counter,
 	}
 }
@@ -35,12 +37,12 @@ func (c MetricsCollection) Introspect(token string) (introspector.Introspection,
 	for i := range c.Collection {
 		intro, err := c.Collection[i].Introspect(token)
 		if err == nil {
-			c.counter.WithLabelValues(fmt.Sprintf("%T", c.Collection[i])).Inc()
+			c.counter.WithLabelValues(c.namespace, fmt.Sprintf("%T", c.Collection[i])).Inc()
 			return intro, nil
 		}
 		errs = append(errs, err)
 	}
 
-	c.counter.WithLabelValues("none").Inc()
+	c.counter.WithLabelValues(c.namespace, "none").Inc()
 	return introspector.Introspection{}, errs.Err()
 }
